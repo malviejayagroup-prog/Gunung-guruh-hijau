@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gunung Guruh Hijau Lestari</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #1a3d2b;
+    --moss: #2d5a3d;
+    --leaf: #4a8c5c;
+    --sage: #7ab893;
+    --mist: #b8d4c0;
+    --cream: #f5f0e8;
+    --bark: #8b6914;
+    --gold: #c9a227;
+    --earth: #5c3d1e;
+    --white: #fdfaf4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--forest);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAVBAR ─── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 999;
+    padding: 18px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(26,61,43,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    color: var(--mist); font-size: 1.1rem; font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.75); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em;
+    text-transform: uppercase; transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    background:
+      linear-gradient(160deg, rgba(10,28,18,0.82) 0%, rgba(26,61,43,0.7) 50%, rgba(45,90,61,0.6) 100%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Cdefs%3E%3CradialGradient id='g1' cx='30%25' cy='40%25' r='60%25'%3E%3Cstop offset='0%25' stop-color='%232d5a3d'/%3E%3Cstop offset='100%25' stop-color='%230a1c12'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect fill='url(%23g1)' width='800' height='600'/%3E%3Ccircle cx='200' cy='500' r='120' fill='%231a3d2b' opacity='0.6'/%3E%3Ccircle cx='600' cy='400' r='80' fill='%234a8c5c' opacity='0.3'/%3E%3Ccircle cx='400' cy='200' r='60' fill='%232d5a3d' opacity='0.4'/%3E%3C/svg%3E");
+    background-size: cover; background-position: center;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; position: relative; padding: 120px 20px 80px;
+  }
+
+  /* Leaf particles */
+  .leaves { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
+  .leaf-p {
+    position: absolute; width: 8px; height: 14px;
+    background: var(--sage); border-radius: 50% 0 50% 0;
+    opacity: 0.15; animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 0.2; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 800px; }
+  .hero-eyebrow {
+    display: inline-block; letter-spacing: 0.25em; text-transform: uppercase;
+    font-size: 0.75rem; font-weight: 600; color: var(--gold);
+    border: 1px solid rgba(201,162,39,0.4); padding: 6px 18px; border-radius: 50px;
+    margin-bottom: 28px; animation: fadeUp 0.8s ease both;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900; line-height: 1.05;
+    color: var(--white); margin-bottom: 12px;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+  .hero h1 em { color: var(--sage); font-style: italic; }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    color: var(--mist); margin-bottom: 20px; font-style: italic;
+    animation: fadeUp 0.8s 0.25s ease both;
+  }
+  .hero-desc {
+    font-size: 0.95rem; color: rgba(255,255,255,0.7);
+    line-height: 1.75; max-width: 580px; margin: 0 auto 40px;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--forest);
+    padding: 14px 36px; border-radius: 50px; font-weight: 700;
+    font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all 0.3s; box-shadow: 0 4px 24px rgba(201,162,39,0.4);
+  }
+  .btn-primary:hover { background: #e0b82d; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,162,39,0.5); }
+  .btn-outline {
+    border: 2px solid rgba(255,255,255,0.4); color: var(--white);
+    padding: 14px 36px; border-radius: 50px; font-weight: 600;
+    font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase;
+    text-decoration: none; cursor: pointer; background: transparent;
+    transition: all 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--sage); color: var(--sage); transform: translateY(-2px); }
+
+  .hero-stats {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    display: flex; justify-content: center; gap: 0;
+    background: rgba(10,28,18,0.8); backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat-item {
+    padding: 20px 48px; text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    flex: 1; max-width: 220px;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--gold); }
+  .stat-label { font-size: 0.75rem; color: var(--mist); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTION BASE ─── */
+  section { padding: 100px 40px; }
+  .section-tag {
+    display: inline-block; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--leaf);
+    border-left: 3px solid var(--gold); padding-left: 12px; margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 900;
+    line-height: 1.15; color: var(--forest); margin-bottom: 16px;
+  }
+  .section-title span { color: var(--leaf); }
+  .section-sub {
+    font-size: 1rem; color: #5a7060; line-height: 1.75;
+    max-width: 560px;
+  }
+  .container { max-width: 1180px; margin: 0 auto; }
+
+  /* ─── ABOUT ─── */
+  .about { background: var(--cream); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .about-visual {
+    position: relative;
+  }
+  .about-card {
+    background: var(--forest); border-radius: 24px;
+    padding: 48px; color: white; position: relative; overflow: hidden;
+  }
+  .about-card::before {
+    content: '🌿'; font-size: 120px; position: absolute;
+    right: -20px; bottom: -20px; opacity: 0.08;
+  }
+  .about-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; margin-bottom: 16px; color: var(--sage);
+  }
+  .about-card p { font-size: 0.92rem; line-height: 1.8; color: rgba(255,255,255,0.8); }
+  .about-badge {
+    position: absolute; top: -16px; right: 32px;
+    background: var(--gold); color: var(--forest);
+    padding: 8px 20px; border-radius: 50px;
+    font-weight: 700; font-size: 0.8rem; letter-spacing: 0.05em;
+  }
+  .about-points { list-style: none; margin-top: 32px; }
+  .about-points li {
+    display: flex; gap: 12px; align-items: flex-start;
+    margin-bottom: 20px; font-size: 0.95rem; color: #3a5040; line-height: 1.6;
+  }
+  .about-points li::before {
+    content: ''; width: 20px; height: 20px; min-width: 20px;
+    background: var(--gold); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+
+  /* ─── PROGRAM ─── */
+  .program { background: var(--white); }
+  .program-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 56px; }
+  .prog-card {
+    border: 1.5px solid rgba(74,140,92,0.2);
+    border-radius: 20px; padding: 36px; background: var(--white);
+    transition: all 0.4s; cursor: default; position: relative; overflow: hidden;
+  }
+  .prog-card::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 4px; height: 0; background: var(--gold);
+    transition: height 0.4s ease;
+  }
+  .prog-card:hover { transform: translateY(-6px); border-color: var(--leaf); box-shadow: 0 20px 60px rgba(26,61,43,0.12); }
+  .prog-card:hover::before { height: 100%; }
+  .prog-icon { font-size: 2.5rem; margin-bottom: 20px; }
+  .prog-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 700; color: var(--forest); margin-bottom: 12px;
+  }
+  .prog-card p { font-size: 0.88rem; color: #5a7060; line-height: 1.75; }
+  .prog-highlight {
+    display: inline-block; margin-top: 16px;
+    background: rgba(74,140,92,0.1); color: var(--leaf);
+    padding: 4px 14px; border-radius: 50px;
+    font-size: 0.8rem; font-weight: 600;
+  }
+
+  /* ─── DONASI ─── */
+  .donasi-section { background: var(--forest); }
+  .donasi-section .section-title { color: var(--white); }
+  .donasi-section .section-tag { color: var(--gold); border-color: var(--gold); }
+  .donasi-section .section-sub { color: var(--mist); }
+
+  .donasi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; margin-top: 56px; }
+
+  /* Bank Info */
+  .bank-card {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px; padding: 36px;
+  }
+  .bank-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; color: var(--gold); margin-bottom: 24px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .bank-detail {
+    background: rgba(255,255,255,0.04); border-radius: 12px;
+    padding: 20px 24px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.08);
+  }
+  .bank-label { font-size: 0.75rem; color: var(--mist); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+  .bank-value { font-size: 1.1rem; color: white; font-weight: 600; letter-spacing: 0.05em; }
+  .bank-value.rek { font-size: 1.4rem; font-family: 'Playfair Display', serif; color: var(--gold); letter-spacing: 0.1em; }
+
+  .nominal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+  .nominal-btn {
+    background: rgba(255,255,255,0.06); border: 1.5px solid rgba(255,255,255,0.15);
+    color: white; padding: 12px 8px; border-radius: 12px; cursor: pointer;
+    font-size: 0.85rem; font-weight: 600; text-align: center; transition: all 0.3s;
+  }
+  .nominal-btn:hover, .nominal-btn.active {
+    background: var(--gold); border-color: var(--gold); color: var(--forest);
+  }
+
+  /* Form Donasi */
+  .form-card {
+    background: var(--white); border-radius: 20px; padding: 40px;
+  }
+  .form-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; color: var(--forest); margin-bottom: 24px;
+    border-bottom: 2px solid rgba(74,140,92,0.2); padding-bottom: 16px;
+  }
+  .form-group { margin-bottom: 18px; }
+  .form-group label {
+    display: block; font-size: 0.8rem; font-weight: 600;
+    color: var(--moss); letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 13px 16px;
+    border: 1.5px solid rgba(74,140,92,0.25);
+    border-radius: 10px; font-size: 0.92rem; font-family: 'DM Sans', sans-serif;
+    color: var(--forest); background: #fafaf8;
+    transition: all 0.3s; outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--leaf); background: white;
+    box-shadow: 0 0 0 3px rgba(74,140,92,0.1);
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .nominal-custom { display: flex; gap: 8px; align-items: center; }
+  .nominal-custom span { color: var(--forest); font-weight: 700; font-size: 1rem; padding-left: 4px; }
+  .btn-submit-wa {
+    width: 100%; padding: 15px; margin-top: 8px;
+    background: #25D366; border: none; border-radius: 12px;
+    color: white; font-size: 1rem; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    gap: 10px; transition: all 0.3s; letter-spacing: 0.02em;
+  }
+  .btn-submit-wa:hover { background: #1db954; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.35); }
+  .wa-icon { font-size: 1.3rem; }
+
+  /* ─── PENDAFTARAN ─── */
+  .daftar-section { background: var(--cream); }
+  .daftar-container { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: start; }
+  .daftar-info h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--forest); margin-bottom: 20px; }
+  .skema-cards { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; }
+  .skema-card {
+    background: white; border-radius: 16px; padding: 24px;
+    border: 1.5px solid rgba(74,140,92,0.2); transition: all 0.3s;
+  }
+  .skema-card:hover { border-color: var(--leaf); transform: translateX(4px); }
+  .skema-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; color: var(--forest); margin-bottom: 6px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .skema-card p { font-size: 0.85rem; color: #5a7060; line-height: 1.65; }
+  .skema-badge {
+    font-size: 0.7rem; background: var(--gold); color: var(--forest);
+    padding: 2px 10px; border-radius: 50px; font-weight: 700;
+  }
+  .daftar-form-wrap {
+    background: white; border-radius: 24px; padding: 44px;
+    box-shadow: 0 20px 60px rgba(26,61,43,0.08);
+    border: 1px solid rgba(74,140,92,0.12);
+  }
+  .daftar-form-wrap h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; color: var(--forest); margin-bottom: 28px;
+    border-bottom: 2px solid rgba(74,140,92,0.15); padding-bottom: 16px;
+  }
+  .form-step-label {
+    font-size: 0.7rem; color: var(--leaf); font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .form-step-label::after {
+    content: ''; flex: 1; height: 1px; background: rgba(74,140,92,0.2);
+  }
+  .btn-submit-daftar {
+    width: 100%; padding: 15px; margin-top: 12px;
+    background: var(--forest); border: none; border-radius: 12px;
+    color: white; font-size: 1rem; font-weight: 700;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    gap: 10px; transition: all 0.3s; letter-spacing: 0.02em;
+  }
+  .btn-submit-daftar:hover { background: var(--moss); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,61,43,0.25); }
+
+  /* ─── KONFIRMASI MODAL ─── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(10,28,18,0.85); backdrop-filter: blur(8px);
+    z-index: 9999; align-items: center; justify-content: center;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal-box {
+    background: white; border-radius: 24px; padding: 48px;
+    max-width: 480px; width: 90%; text-align: center;
+    animation: popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+  }
+  @keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .modal-icon { font-size: 3.5rem; margin-bottom: 16px; }
+  .modal-box h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--forest); margin-bottom: 12px; }
+  .modal-box p { font-size: 0.92rem; color: #5a7060; line-height: 1.7; margin-bottom: 28px; }
+  .modal-summary {
+    background: var(--cream); border-radius: 12px; padding: 20px;
+    margin-bottom: 24px; text-align: left;
+  }
+  .modal-summary p { margin-bottom: 6px; font-size: 0.88rem; color: #3a5040; }
+  .modal-summary strong { color: var(--forest); }
+  .modal-btns { display: flex; gap: 12px; }
+  .btn-wa-confirm {
+    flex: 1; padding: 13px; background: #25D366; border: none;
+    border-radius: 10px; color: white; font-weight: 700; font-size: 0.92rem;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    gap: 8px; transition: all 0.3s;
+  }
+  .btn-wa-confirm:hover { background: #1db954; }
+  .btn-close {
+    padding: 13px 20px; background: var(--cream); border: 1.5px solid rgba(74,140,92,0.3);
+    border-radius: 10px; color: var(--forest); font-weight: 600; font-size: 0.88rem;
+    cursor: pointer; transition: all 0.3s;
+  }
+  .btn-close:hover { background: #eee; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #0a1c12; color: rgba(255,255,255,0.6);
+    text-align: center; padding: 36px 40px;
+    font-size: 0.85rem; line-height: 1.8;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  footer strong { color: var(--sage); }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* ─── TICKER ─── */
+  .ticker-wrap {
+    background: var(--gold); padding: 10px 0; overflow: hidden;
+  }
+  .ticker {
+    display: flex; gap: 80px; animation: ticker 25s linear infinite;
+    white-space: nowrap;
+  }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .ticker span { font-size: 0.8rem; font-weight: 700; color: var(--forest); letter-spacing: 0.1em; text-transform: uppercase; }
+  .ticker .dot { color: var(--forest); opacity: 0.4; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    section { padding: 70px 20px; }
+    .about-grid, .donasi-grid, .daftar-container { grid-template-columns: 1fr; gap: 40px; }
+    .program-grid { grid-template-columns: 1fr 1fr; }
+    .hero-stats { flex-wrap: wrap; }
+    .stat-item { min-width: 45%; }
+    .form-row { grid-template-columns: 1fr; }
+    .daftar-form-wrap { padding: 28px; }
+  }
+  @media (max-width: 560px) {
+    .program-grid { grid-template-columns: 1fr; }
+    .nominal-grid { grid-template-columns: repeat(2,1fr); }
+    .modal-btns { flex-direction: column; }
+  }
+
+  /* success state */
+  .success-msg {
+    display: none; text-align: center; padding: 20px;
+    color: var(--leaf); font-weight: 600; font-size: 1rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">Gunung Guruh <span>Hijau Lestari</span></div>
+  <ul class="nav-links">
+    <li><a href="#tentang">Tentang</a></li>
+    <li><a href="#program">Program</a></li>
+    <li><a href="#donasi">Donasi</a></li>
+    <li><a href="#daftar">Daftar</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="beranda">
+  <div class="leaves" id="leaves"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">🌿 Gerakan Penyelamatan Hutan — Sukabumi</div>
+    <h1>Gunung Guruh<br><em>Hijau Lestari</em></h1>
+    <p class="hero-sub">Bersama kita selamatkan 50 hektar hutan penyangga kehidupan</p>
+    <p class="hero-desc">Sebuah gerakan nyata dari warga Kp. Pasir Ipis, Gunung Guruh, Sukabumi — menyelamatkan hutan dari ancaman tambang melalui pertanian agroforestri Labu Siam yang produktif dan berkelanjutan.</p>
+    <div class="hero-btns">
+      <a href="#donasi" class="btn-primary">💚 Donasi Sekarang</a>
+      <a href="#daftar" class="btn-outline">Ikut Bergabung</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item"><div class="stat-num">50</div><div class="stat-label">Hektar Lahan</div></div>
+    <div class="stat-item"><div class="stat-num">5K+</div><div class="stat-label">Target Pohon</div></div>
+    <div class="stat-item"><div class="stat-num">Rp500</div><div class="stat-label">Harga/Buah</div></div>
+    <div class="stat-item"><div class="stat-num">3–4</div><div class="stat-label">Bulan Panen</div></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker" id="ticker">
+    <span>🌱 Selamatkan Hutan Gunung Guruh</span><span class="dot">✦</span>
+    <span>🌿 Pertanian Berkelanjutan untuk Petani Lokal</span><span class="dot">✦</span>
+    <span>🌲 50 Ha Paru-Paru Alam Menanti Keselamatan</span><span class="dot">✦</span>
+    <span>💚 Bersama Kita Bisa – Donasi & Investasi Terbuka</span><span class="dot">✦</span>
+    <span>🌱 Selamatkan Hutan Gunung Guruh</span><span class="dot">✦</span>
+    <span>🌿 Pertanian Berkelanjutan untuk Petani Lokal</span><span class="dot">✦</span>
+    <span>🌲 50 Ha Paru-Paru Alam Menanti Keselamatan</span><span class="dot">✦</span>
+    <span>💚 Bersama Kita Bisa – Donasi & Investasi Terbuka</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- TENTANG -->
+<section class="about" id="tentang">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="about-card">
+          <div class="about-badge">⚠️ Darurat Hutan</div>
+          <h3>Hutan Kami Terancam</h3>
+          <p>Kurang lebih 50 hektar lahan gunung tepat di atas pemukiman kami terancam habis dijual dan direncanakan untuk kegiatan pertambangan. Lahan ini adalah paru-paru kami, sumber air kami, dan penyangga kehidupan seluruh warga di bawahnya.</p>
+          <p style="margin-top:16px">Kami diberikan kesempatan untuk memanfaatkan lahan tersebut sebelum tambang beroperasi. Ini adalah momentum yang tidak boleh kita lewatkan bersama.</p>
+        </div>
+      </div>
+      <div>
+        <div class="section-tag">Tentang Program</div>
+        <h2 class="section-title">Mengapa Ini <span>Penting?</span></h2>
+        <p class="section-sub">Hutan bukan sekadar pohon — ia adalah kehidupan, air, udara, dan masa depan anak cucu kita. Bersama, kita bisa buktikan bahwa alam dapat diselamatkan sekaligus menyejahterakan.</p>
+        <ul class="about-points">
+          <li>Lahan berfungsi sebagai penahan longsor dan sumber air bersih bagi pemukiman di bawahnya</li>
+          <li>Program labu siam agroforestri menghasilkan panen dalam 3–4 bulan sambil memulihkan ekosistem</li>
+          <li>Mengembalikan hak kelola lahan kepada petani dan masyarakat lokal</li>
+          <li>Setiap donasi dan investasi langsung berdampak nyata di lapangan</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM -->
+<section class="program" id="program">
+  <div class="container">
+    <div class="section-tag">Program Kami</div>
+    <h2 class="section-title">Kebun <span>Labu Siam</span> Agroforestri</h2>
+    <p class="section-sub">Tanaman labu siam merambat bersama pohon keras — produktif secara ekonomi, restoratif secara ekologi.</p>
+    <div class="program-grid">
+      <div class="prog-card">
+        <div class="prog-icon">🌱</div>
+        <h3>Bibit & Penanaman</h3>
+        <p>1.000 pohon labu siam di fase pertama dikombinasikan dengan pohon keras (sengon, mahoni, bambu) sebagai agroforestri berkelanjutan.</p>
+        <span class="prog-highlight">RAB: Rp50.000/pohon</span>
+      </div>
+      <div class="prog-card">
+        <div class="prog-icon">⏱️</div>
+        <h3>Panen Cepat</h3>
+        <p>Labu siam mulai berbuah dalam 3–4 bulan setelah tanam dengan produktivitas tinggi dan permintaan pasar yang sudah tersedia.</p>
+        <span class="prog-highlight">Rp500–1.000/buah</span>
+      </div>
+      <div class="prog-card">
+        <div class="prog-icon">🤝</div>
+        <h3>Bagi Hasil Transparan</h3>
+        <p>Investor menerima 60% hasil panen, pengelola 40%. Laporan berkala dengan foto & video dikirim langsung ke investor.</p>
+        <span class="prog-highlight">Min. 100 pohon</span>
+      </div>
+      <div class="prog-card">
+        <div class="prog-icon">🌳</div>
+        <h3>Pemulihan Hutan</h3>
+        <p>Setiap pohon yang ditanam adalah langkah nyata memulihkan tutupan hutan dan mencegah erosi serta bencana longsor.</p>
+        <span class="prog-highlight">50 Ha Target</span>
+      </div>
+      <div class="prog-card">
+        <div class="prog-icon">👨‍🌾</div>
+        <h3>Petani Lokal</h3>
+        <p>Program ini memprioritaskan pemberdayaan petani dan warga lokal sebagai tenaga kerja utama dan pengelola kebun.</p>
+        <span class="prog-highlight">Lapangan Kerja</span>
+      </div>
+      <div class="prog-card">
+        <div class="prog-icon">📜</div>
+        <h3>Sertifikat Resmi</h3>
+        <p>Setiap donatur dan investor menerima sertifikat resmi sebagai bukti kepesertaan dan apresiasi kontribusi mereka.</p>
+        <span class="prog-highlight">Dokumen Legal</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DONASI -->
+<section class="donasi-section" id="donasi">
+  <div class="container">
+    <div class="section-tag">Dukung Program</div>
+    <h2 class="section-title" style="color:white">Kirim <span style="color:var(--sage)">Donasi</span> Anda</h2>
+    <p class="section-sub">Setiap rupiah yang Anda donasikan adalah langkah nyata menyelamatkan hutan dan menghidupkan kembali pertanian rakyat.</p>
+
+    <div class="donasi-grid">
+      <!-- Info Rekening -->
+      <div>
+        <div class="bank-card">
+          <h3>🏦 Info Rekening</h3>
+          <div class="bank-detail">
+            <div class="bank-label">Bank</div>
+            <div class="bank-value">Bank Mandiri</div>
+          </div>
+          <div class="bank-detail">
+            <div class="bank-label">Atas Nama</div>
+            <div class="bank-value">HUDRI</div>
+          </div>
+          <div class="bank-detail">
+            <div class="bank-label">Nomor Rekening</div>
+            <div class="bank-value rek">1820016298168</div>
+          </div>
+          <div class="bank-detail" style="background:rgba(37,211,102,0.08); border-color:rgba(37,211,102,0.2)">
+            <div class="bank-label" style="color:var(--sage)">WhatsApp Konfirmasi</div>
+            <div class="bank-value" style="color:#6dda8f">083871666136</div>
+          </div>
+        </div>
+
+        <div style="margin-top:24px; padding:24px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:16px;">
+          <p style="color:var(--mist); font-size:0.87rem; line-height:1.7;">
+            📋 <strong style="color:white">Cara Transfer:</strong><br>
+            1. Transfer ke rekening di atas<br>
+            2. Isi form donasi di samping<br>
+            3. Klik tombol hijau — konfirmasi otomatis terkirim ke WhatsApp kami<br>
+            4. Kami akan membalas dalam 1×24 jam
+          </p>
+        </div>
+      </div>
+
+      <!-- Form Donasi -->
+      <div class="form-card">
+        <h3>✍️ Form Konfirmasi Donasi</h3>
+        <div class="form-group">
+          <label>Nama Lengkap</label>
+          <input type="text" id="d-nama" placeholder="Masukkan nama Anda">
+        </div>
+        <div class="form-group">
+          <label>Nomor WhatsApp</label>
+          <input type="tel" id="d-wa" placeholder="Contoh: 081234567890">
+        </div>
+        <div class="form-group">
+          <label>Nominal Donasi</label>
+          <div class="nominal-grid" id="nominalGrid">
+            <div class="nominal-btn" data-val="50000">Rp50.000</div>
+            <div class="nominal-btn" data-val="100000">Rp100.000</div>
+            <div class="nominal-btn" data-val="250000">Rp250.000</div>
+            <div class="nominal-btn" data-val="500000">Rp500.000</div>
+            <div class="nominal-btn" data-val="1000000">Rp1 Juta</div>
+            <div class="nominal-btn" data-val="custom">Lainnya</div>
+          </div>
+        </div>
+        <div class="form-group" id="customNominalGroup" style="display:none">
+          <label>Nominal Lainnya</label>
+          <div class="nominal-custom">
+            <span>Rp</span>
+            <input type="number" id="d-nominal-custom" placeholder="Masukkan nominal" style="flex:1">
+          </div>
+        </div>
+        <input type="hidden" id="d-nominal-val">
+        <div class="form-group">
+          <label>Pesan (Opsional)</label>
+          <textarea id="d-pesan" rows="2" placeholder="Tulis pesan atau harapan Anda..."></textarea>
+        </div>
+        <button class="btn-submit-wa" onclick="submitDonasi()">
+          <span class="wa-icon">💬</span> Konfirmasi via WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PENDAFTARAN -->
+<section class="daftar-section" id="daftar">
+  <div class="container">
+    <div class="daftar-container">
+      <div class="daftar-info">
+        <div class="section-tag">Bergabung</div>
+        <h2 class="section-title">Daftar <span>Sekarang</span></h2>
+        <p class="section-sub">Pilih skema partisipasi yang sesuai dengan kemampuan dan keinginan Anda.</p>
+        <div class="skema-cards">
+          <div class="skema-card">
+            <h4>💚 Donasi Penuh <span class="skema-badge">Gratis</span></h4>
+            <p>Donasikan seikhlasnya, terima sertifikat penghargaan "Pejuang Lingkungan" dan laporan perkembangan berkala.</p>
+          </div>
+          <div class="skema-card">
+            <h4>📈 Investor Kebun <span class="skema-badge">Bagi Hasil 60:40</span></h4>
+            <p>Min. 100 pohon (Rp5.000.000). Panen mulai 3–4 bulan. Terima sertifikat resmi + laporan berkala.</p>
+          </div>
+          <div class="skema-card">
+            <h4>🤝 Mitra / Relawan</h4>
+            <p>Bantu program melalui tenaga, keahlian, jaringan, atau media sosial. Bergabung sebagai bagian dari tim lapangan.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="daftar-form-wrap">
+        <h3>📝 Formulir Pendaftaran</h3>
+        <div class="form-step-label">Data Pribadi</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nama Depan</label>
+            <input type="text" id="r-nama-depan" placeholder="Nama depan">
+          </div>
+          <div class="form-group">
+            <label>Nama Belakang</label>
+            <input type="text" id="r-nama-belakang" placeholder="Nama belakang">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Nomor WhatsApp</label>
+          <input type="tel" id="r-wa" placeholder="Contoh: 081234567890">
+        </div>
+        <div class="form-group">
+          <label>Asal Daerah / Kota</label>
+          <input type="text" id="r-kota" placeholder="Kota / Kabupaten">
+        </div>
+        <div class="form-step-label" style="margin-top:8px">Skema Partisipasi</div>
+        <div class="form-group">
+          <label>Pilih Skema</label>
+          <select id="r-skema">
+            <option value="">-- Pilih Skema --</option>
+            <option value="Donasi Penuh">💚 Donasi Penuh</option>
+            <option value="Investor Kebun (min. 100 pohon - Rp5.000.000)">📈 Investor Kebun (Min. 100 pohon)</option>
+            <option value="Mitra / Relawan">🤝 Mitra / Relawan</option>
+          </select>
+        </div>
+        <div class="form-group" id="jmlPohonGroup" style="display:none">
+          <label>Jumlah Pohon yang Diinvestasikan</label>
+          <input type="number" id="r-pohon" placeholder="Minimum 100 pohon" min="100">
+        </div>
+        <div class="form-group">
+          <label>Pertanyaan / Catatan (Opsional)</label>
+          <textarea id="r-catatan" rows="2" placeholder="Ada pertanyaan atau informasi tambahan?"></textarea>
+        </div>
+        <button class="btn-submit-daftar" onclick="submitDaftar()">
+          <span>💬</span> Kirim via WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Gunung Guruh Hijau Lestari</strong></p>
+  <p>Kp. Pasir Ipis 041/008, Gunung Guruh, Sukabumi, Jawa Barat</p>
+  <p>Penggagas: <strong>Moch Malvie Alkhudriyah</strong> &nbsp;|&nbsp; WhatsApp: <a href="https://wa.me/6283871666136">083871666136</a></p>
+  <p style="margin-top:12px; font-size:0.78rem; opacity:0.5">"Selamatkan hutan hari ini, nikmati hasilnya selamanya." 🌿</p>
+</footer>
+
+<!-- MODAL KONFIRMASI DONASI -->
+<div class="modal-overlay" id="modalDonasi">
+  <div class="modal-box">
+    <div class="modal-icon">💚</div>
+    <h3>Konfirmasi Donasi</h3>
+    <p>Silakan tinjau detail donasi Anda sebelum mengirim konfirmasi ke WhatsApp kami.</p>
+    <div class="modal-summary" id="modalSummaryDonasi"></div>
+    <div class="modal-btns">
+      <button class="btn-close" onclick="closeModal('modalDonasi')">Kembali</button>
+      <button class="btn-wa-confirm" id="btnWaDonasi">
+        <span>💬</span> Kirim ke WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL KONFIRMASI DAFTAR -->
+<div class="modal-overlay" id="modalDaftar">
+  <div class="modal-box">
+    <div class="modal-icon">🌱</div>
+    <h3>Konfirmasi Pendaftaran</h3>
+    <p>Tinjau data pendaftaran Anda sebelum mengirim ke WhatsApp kami.</p>
+    <div class="modal-summary" id="modalSummaryDaftar"></div>
+    <div class="modal-btns">
+      <button class="btn-close" onclick="closeModal('modalDaftar')">Kembali</button>
+      <button class="btn-wa-confirm" id="btnWaDaftar">
+        <span>💬</span> Kirim ke WhatsApp
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const WA_NUMBER = "6283871666136";
+
+  // ─── LEAF PARTICLES ───
+  const leavesEl = document.getElementById('leaves');
+  for (let i = 0; i < 18; i++) {
+    const l = document.createElement('div');
+    l.className = 'leaf-p';
+    l.style.left = Math.random() * 100 + '%';
+    l.style.animationDuration = (8 + Math.random() * 12) + 's';
+    l.style.animationDelay = (-Math.random() * 15) + 's';
+    l.style.width = (5 + Math.random() * 8) + 'px';
+    l.style.height = (9 + Math.random() * 12) + 'px';
+    leavesEl.appendChild(l);
+  }
+
+  // ─── NOMINAL BUTTONS ───
+  let selectedNominal = '';
+  document.querySelectorAll('.nominal-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.nominal-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const val = btn.dataset.val;
+      if (val === 'custom') {
+        document.getElementById('customNominalGroup').style.display = 'block';
+        selectedNominal = 'custom';
+      } else {
+        document.getElementById('customNominalGroup').style.display = 'none';
+        selectedNominal = val;
+      }
+    });
+  });
+
+  // ─── SKEMA SWITCH ───
+  document.getElementById('r-skema').addEventListener('change', function() {
+    const jmlGroup = document.getElementById('jmlPohonGroup');
+    jmlGroup.style.display = this.value.includes('Investor') ? 'block' : 'none';
+  });
+
+  // ─── FORMAT RUPIAH ───
+  function formatRp(num) {
+    return 'Rp' + parseInt(num).toLocaleString('id-ID');
+  }
+
+  // ─── VALIDASI ───
+  function validateDonasi() {
+    const nama = document.getElementById('d-nama').value.trim();
+    const wa = document.getElementById('d-wa').value.trim();
+    let nominal = selectedNominal;
+    if (nominal === 'custom') nominal = document.getElementById('d-nominal-custom').value;
+    if (!nama) { alert('Nama lengkap wajib diisi.'); return null; }
+    if (!wa) { alert('Nomor WhatsApp wajib diisi.'); return null; }
+    if (!nominal || nominal == 0) { alert('Pilih atau masukkan nominal donasi.'); return null; }
+    return { nama, wa, nominal, pesan: document.getElementById('d-pesan').value.trim() };
+  }
+
+  function validateDaftar() {
+    const namaDepan = document.getElementById('r-nama-depan').value.trim();
+    const namaBelakang = document.getElementById('r-nama-belakang').value.trim();
+    const wa = document.getElementById('r-wa').value.trim();
+    const kota = document.getElementById('r-kota').value.trim();
+    const skema = document.getElementById('r-skema').value;
+    if (!namaDepan) { alert('Nama depan wajib diisi.'); return null; }
+    if (!wa) { alert('Nomor WhatsApp wajib diisi.'); return null; }
+    if (!skema) { alert('Pilih skema partisipasi.'); return null; }
+    const pohon = skema.includes('Investor') ? document.getElementById('r-pohon').value : '';
+    if (skema.includes('Investor') && (!pohon || pohon < 100)) { alert('Jumlah pohon minimum 100 pohon.'); return null; }
+    return {
+      nama: namaDepan + ' ' + namaBelakang,
+      wa, kota, skema, pohon,
+      catatan: document.getElementById('r-catatan').value.trim()
+    };
+  }
+
+  // ─── SUBMIT DONASI ───
+  function submitDonasi() {
+    const data = validateDonasi();
+    if (!data) return;
+    let nominal = data.nominal === 'custom' ? document.getElementById('d-nominal-custom').value : data.nominal;
+    const summary = document.getElementById('modalSummaryDonasi');
+    summary.innerHTML = `
+      <p>👤 <strong>Nama:</strong> ${data.nama}</p>
+      <p>📱 <strong>WhatsApp:</strong> ${data.wa}</p>
+      <p>💰 <strong>Nominal:</strong> ${formatRp(nominal)}</p>
+      ${data.pesan ? `<p>💬 <strong>Pesan:</strong> ${data.pesan}</p>` : ''}
+    `;
+    const waMsg = encodeURIComponent(
+      `*KONFIRMASI DONASI*\n` +
+      `*Program: Gunung Guruh Hijau Lestari*\n\n` +
+      `👤 Nama: ${data.nama}\n` +
+      `📱 WhatsApp: ${data.wa}\n` +
+      `💰 Nominal Donasi: ${formatRp(nominal)}\n` +
+      `🏦 Bank Tujuan: Mandiri - 1820016298168 a.n. HUDRI\n` +
+      `${data.pesan ? `💬 Pesan: ${data.pesan}\n` : ''}` +
+      `\n_Dikirim melalui website Gunung Guruh Hijau Lestari_`
+    );
+    document.getElementById('btnWaDonasi').onclick = () => {
+      window.open(`https://wa.me/${WA_NUMBER}?text=${waMsg}`, '_blank');
+      closeModal('modalDonasi');
+    };
+    openModal('modalDonasi');
+  }
+
+  // ─── SUBMIT DAFTAR ───
+  function submitDaftar() {
+    const data = validateDaftar();
+    if (!data) return;
+    const totalInv = data.pohon ? formatRp(data.pohon * 50000) : '-';
+    const summary = document.getElementById('modalSummaryDaftar');
+    summary.innerHTML = `
+      <p>👤 <strong>Nama:</strong> ${data.nama}</p>
+      <p>📱 <strong>WhatsApp:</strong> ${data.wa}</p>
+      <p>📍 <strong>Kota:</strong> ${data.kota || '-'}</p>
+      <p>🌱 <strong>Skema:</strong> ${data.skema}</p>
+      ${data.pohon ? `<p>🌳 <strong>Jumlah Pohon:</strong> ${data.pohon} pohon (${totalInv})</p>` : ''}
+      ${data.catatan ? `<p>📝 <strong>Catatan:</strong> ${data.catatan}</p>` : ''}
+    `;
+    const waMsg = encodeURIComponent(
+      `*PENDAFTARAN PESERTA*\n` +
+      `*Program: Gunung Guruh Hijau Lestari*\n\n` +
+      `👤 Nama: ${data.nama}\n` +
+      `📱 WhatsApp: ${data.wa}\n` +
+      `📍 Asal Daerah: ${data.kota || '-'}\n` +
+      `🌱 Skema: ${data.skema}\n` +
+      `${data.pohon ? `🌳 Jumlah Pohon: ${data.pohon} pohon (Est. ${totalInv})\n` : ''}` +
+      `${data.catatan ? `📝 Catatan: ${data.catatan}\n` : ''}` +
+      `\n_Dikirim melalui website Gunung Guruh Hijau Lestari_`
+    );
+    document.getElementById('btnWaDaftar').onclick = () => {
+      window.open(`https://wa.me/${WA_NUMBER}?text=${waMsg}`, '_blank');
+      closeModal('modalDaftar');
+    };
+    openModal('modalDaftar');
+  }
+
+  // ─── MODAL ───
+  function openModal(id) { document.getElementById(id).classList.add('active'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+  document.querySelectorAll('.modal-overlay').forEach(m => {
+    m.addEventListener('click', (e) => { if (e.target === m) m.classList.remove('active'); });
+  });
+
+  // ─── NAVBAR SCROLL ───
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.background = window.scrollY > 50
+      ? 'rgba(10,28,18,0.98)'
+      : 'rgba(26,61,43,0.96)';
+  });
+</script>
+</body>
+</html>
